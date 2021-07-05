@@ -1,0 +1,274 @@
+---
+title: "Quiz.rmd"
+author: "Luis Carlo Sevilla"
+date: "7/25/2021"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+#### Question 1: The life in hours of a battery is known to be approximately normally distributed with standard deviation σ = 1.25 hours. A random sample of 10 batteries has a mean life of x̄ = 40.5 hours.
+
+#### A.Is there evidence to support the claim that battery life exceeds 40 hours? use α = 0.05.
+***1: Parameters of Interest***
+The parameter of interest is $\mu$, or the mean battery life
+
+
+***2: Specify the Null Hypothesis***
+
+
+
+$H_{0}$: $\mu = 40$ 
+
+
+***3: Specify the Alternative Hypothesis***
+
+
+
+$H_{1}$: $\mu > 40$ 
+
+
+***4: Determine an Appropriate Test Statistic***
+
+The Z-Score equation will be used since the mean and standard deviation is already given.
+
+
+
+$$Z_{0} = \frac{\bar{x}-\mu_0}{\frac{\sigma}{\sqrt n}}$$
+
+
+
+
+***5: Stating the Rejection Region for the Statistic***
+
+
+***Reject*** $H_{0}$ ***if*** $Z_{0} > Z_{a}$ because there is no proof stated that the battery life exceeds 40 hours
+
+
+
+***6: Computation***
+
+
+
+Since $\bar{x} = 40.5$, $\mu_{0} = 40$, $\sigma = 1.25$, and $n = 10$, we can substitute these variables in the formula stated above and we will get,
+
+
+$$
+Z_{0} = \frac{40.5-40}{\frac{1.25}{\sqrt 10}} \approx 1.265
+$$
+
+
+
+We could also utilize the functions or R by performing these sequence of codes:
+
+
+```{r, echo=TRUE}
+xbar = 40.5
+mu0 = 40
+sigma = 1.25
+n = 10
+z = (xbar-mu0)/(sigma/sqrt(n)); z #Solves for Z0
+```
+
+
+
+
+After that, we should solve for $Z_{a}$ by using the ***qnorm*** function of R:
+
+
+```{r, echo=TRUE}
+alpha = 0.05
+qnorm(alpha, lower.tail = FALSE) #FALSE since we are using Upper Tail Test
+```
+
+From the computations, $Z_{0} \approx 1.26491$ and $Z_{a} \approx 1.644854$
+
+
+***7: Conclusion***
+
+$Z_{0} < Z_{a}$ therefore we ***fail to reject*** $H_{0}$ meaning there is not enough evidence to prove that the battery life exceeds 40 hours
+
+
+
+---
+
+
+
+#### B. What is the P-value for the test in part A?
+
+
+
+The P-value for the Upper Tailed Test can be obtained by using the formula:
+
+$$P-val = 1 - \Phi (Z_0)
+$$
+
+
+
+We already concluded that $Z_0 \approx 1.26491$ but in order to utilize the functions of R and solve for the P-Value the following should be done:
+```{r, echo=TRUE}
+xbar = 40.5
+mu0 = 40
+sigma = 1.25
+n = 10
+z = (xbar-mu0)/(sigma/sqrt(n)) #Solves for Z0
+pnorm(z,lower.tail = FALSE); #Gets the P-Value of Z0
+
+```
+
+$$ P-value \approx 0.103$$
+
+#### C. What is the β-error for the text in part B if the true mean life is 42 hours?
+
+In order to get the $\beta$-error we can use Z statistic formula we used before:
+
+$$Z = \frac{\bar{x}-\mu_0}{\frac{\sigma}{\sqrt n}}$$
+Since we already established the value of Z from the $Z_a$ which was $\approx 1.644854$ and use the other given, we can now solve for the critical value $\bar(x)$ by substituting all the values that are already present.
+
+$$\bar{x} = \mu_0 + Z_a (\frac{\sigma}{\sqrt n})$$
+Substituting the values:
+$$\bar{x} = 40 + 1.644854 (\frac{1.25}{\sqrt 10})  $$ 
+
+We can also utilize the functions of R and solve for $\bar{x}$ by doing the following code:
+```{r, echo = TRUE}
+alpha = 0.05
+mu0 = 40
+sem = 1.25/sqrt(10)
+qnorm(alpha, mean = mu0, sd = sem, lower.tail = FALSE) #Solves for x bar 
+
+```
+
+After getting the value of $\bar{x}$ we can now solve for the $\beta$-error by using the Z statistic formula
+
+$$Z = \frac{40.65019-42}{\frac{1.25}{\sqrt 10}}$$
+```{r}
+xbar = 40.65019
+mu = 42
+sem = 1.25/sqrt(10)
+z = (xbar-mu)/sem; z #Gets the Z value
+```
+Then in order to get $P(Z < -3.42) we use the ***pnorm*** function: 
+```{r, echo = TRUE}
+pnorm(z)
+```
+
+Therefore $$ \beta -error \approx 0.000313 $$
+
+
+#### D. What sample size would be required to ensure that β does not exceed 0.10 if the true mean is 44 hours?
+In order to solve for the sample size $n$ let us use the formula: 
+
+$$n = \frac{(Z_a+Z_\beta)^2 \sigma^2}{\delta^2}$$
+we need to get the value of $Z_\beta$ where $\beta$ would not exceed 0.10. We can do so by using the qnorm function:
+```{r, echo=TRUE}
+qnorm(.10, lower.tail = FALSE)
+```
+We also do not have the value of $\bar{x}$ but we already know how to solve for it by using the method we used iu
+We can now proceed to use the formula and substitute the values in order to get n. 
+$$
+n = \frac{(1.644854 + 1.281552)^2 1.25^2}{44-40^2}
+$$
+We can also solve for n using the functions of R:
+```{r, echo=TRUE}
+za = qnorm(0.05, lower.tail = FALSE)+qnorm(.10, lower.tail = FALSE)
+zBA = za^2
+del = (44-40)^2
+sd = 1.25
+n = (zBA*1.25^2)/del; n
+```
+
+We can conclude that a sample size of $1$ is required so that $\beta$ would not exceed 0.10
+
+#### E. Explain how you could answer the question in part A by calculating an appropriate confidence bound on battery life.
+
+Since our null hypothesis $H_0: \mu = 40$, $\alpha = 0.05$, $\bar{x} = 40.5$, $\sigma = 1.25$, and $n = 10$, we can compute for the Confidence Interval using the formula for Upper-Tailed Test:
+
+$$ Cl = \bar{x} + Z_\alpha (\frac{\sigma}{\sqrt n}) $$
+Substituting the values we will get:
+$$ Cl = 40.5 + 1.645 (\frac{1.25}{\sqrt 10}) $$
+$$ Cl: \mu <41.150  $$
+
+Since $\mu = 40$ is within the range of the Confidence Interval we ***fail to reject*** $H_0$ or we can say that the $H_0$ falls within the 95% confidence bound
+
+
+
+#### Question 2: Brand A gasoline was used in 16 similar automobiles under identical conditions. The corresponding sample of 16 values (miles per gallon) had mean 19.6 and standard deviation 0.4. Under the same conditions, high-power brand B gasoline gave a sample of 16 values with mean 20.2 and standard deviation 0.6. Is mileage of B significantly better than that of A? Assume normality. Test the hypothesis using both P-value and fixed significance level with α = 0.05 approaches (if possible).
+
+***1: Parameters of Interest***
+
+
+
+The quantity of interest is the difference in mean millage, $\mu_1 - \mu_2$ and $\Delta_0$.
+
+***2: Specify the Non Hypothesis***
+
+
+
+Null Hypothesis: $H_0 : \mu_1 - \mu_2 = 0$
+
+
+***3: Specify the Alternative Hypothesis***
+
+
+
+Alternative Hypothesis: $H_\alpha: \mu_1 < \mu_2$
+
+***4: Determine an Appropriate Test Statistic***
+
+We will use this following equation since the mean and standard deviation is already given:
+
+$$
+z_0 = \frac{\bar{x_1} - \bar{x_2} - \Delta_0}{\sqrt{\frac{\sigma^2_1}{n_1}+\frac{\sigma^2_2}{n_2}}}
+$$
+
+
+
+
+
+***5: Stating the Rejection Region for the Statistic***
+
+
+
+
+Reject $H_0$ if **P-value** is less than $\alpha$, where $\alpha = 0.05$. For the significant level test, we will also reject $H_0$ is $z_0 < -z_\alpha$
+
+
+
+
+
+
+***6: Computation***
+
+Where $\bar{x_1} = 19.6$, $\sigma_1= 0.4$, $n_1= 16$, $\bar{x_2} = 20.2$, $\sigma_2= 0.6$, $n_2= 16$, and $\Delta_0 = 0$. That gives us:
+
+$$
+z_0 = \frac{19.6 - 20.2 - 0}{\sqrt{\frac{0.4^2}{16}+\frac{0.6^2}{16}}}
+$$
+```{r, echo=TRUE}
+x1 = 19.6
+x2 = 20.2
+sig1 = 0.4
+sig2 = 0.6
+n = 16 #Since sample sizes of both side are equal
+z0 = (x1-x2)/(sqrt((sig1^2/n)+(sig2^2/n))); z0
+```
+
+We should also get the value of $-z_\alpha$ or $-z_.05$
+```{r,echo=TRUE}
+qnorm(alpha)
+```
+
+Since we now have the value of $z_0$ we can now solve for its $P-level = \Phi(t)$. The lower the P-level the stronger evidence we have to reject the Null Hypothesis
+```{r, echo=TRUE}
+pnorm(z0)
+```
+
+
+
+***7: Conclusion***
+
+
+
+Since our **P-level** is less than the alpha value ($0.0004<0.05$) and in the significance test we proved that $z_0 > -z_\alpha$, ($-3.33 > -1.64$) we ***reject *** $H_0$
