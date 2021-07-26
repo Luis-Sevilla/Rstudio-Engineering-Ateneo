@@ -282,7 +282,7 @@ n = (zBA*1.25^2)/del; n</code></pre>
 z_0 = \frac{\bar{x_1} - \bar{x_2} - \Delta_0}{\sqrt{\frac{\sigma^2_1}{n_1}+\frac{\sigma^2_2}{n_2}}}
 \]</span></p>
 <p><strong><em>5: Stating the Rejection Region for the Statistic</em></strong></p>
-<p>Reject <span class="math inline">\(H_0\)</span> if <strong>P-value</strong> is less than <span class="math inline">\(\alpha\)</span>, where <span class="math inline">\(\alpha = 0.05\)</span>. For the significant level test, we will also reject <span class="math inline">\(H_0\)</span> is <span class="math inline">\(z_0 &lt; -z_\alpha\)</span></p>
+<p>Reject <span class="math inline">\(H_0\)</span> if <strong>P-value</strong> is less than <span class="math inline">\(\alpha\)</span>, where <span class="math inline">\(\alpha = 0.05\)</span>. For the significance level test, we will also reject <span class="math inline">\(H_0\)</span> if <span class="math inline">\(z_0 &lt; -z_\alpha\)</span></p>
 <p><strong><em>6: Computation</em></strong></p>
 <p>Where <span class="math inline">\(\bar{x_1} = 19.6\)</span>, <span class="math inline">\(\sigma_1= 0.4\)</span>, <span class="math inline">\(n_1= 16\)</span>, <span class="math inline">\(\bar{x_2} = 20.2\)</span>, <span class="math inline">\(\sigma_2= 0.6\)</span>, <span class="math inline">\(n_2= 16\)</span>, and <span class="math inline">\(\Delta_0 = 0\)</span>. That gives us:</p>
 <p><span class="math display">\[
@@ -303,6 +303,13 @@ z0 = (x1-x2)/(sqrt((sig1^2/n)+(sig2^2/n))); z0</code></pre>
 <pre><code>## [1] 0.0004370436</code></pre>
 <p><strong><em>7: Conclusion</em></strong></p>
 <p>Since our <strong>P-level</strong> is less than the alpha value (<span class="math inline">\(0.0004&lt;0.05\)</span>) and in the significance test we proved that <span class="math inline">\(z_0 &gt; -z_\alpha\)</span>, (<span class="math inline">\(-3.33 &gt; -1.64\)</span>) we <strong><em>reject </em></strong> <span class="math inline">\(H_0\)</span></p>
+</div>
+<div id="references" class="section level4">
+<h4>References</h4>
+<ul>
+<li>Montgomery, Douglas C, and George C Runger. 2010. Applied Statistics and Probability for Engineers. John Wiley &amp; Sons.</li>
+<li>“Type II Error in Upper Tail Test of Population Mean with Known Variance.” Type II Error in Upper Tail Test of Population Mean with Known Variance | R Tutorial, www.r-tutor.com/elementary-statistics/type-2-errors/type-2-errors-upper-tail-test-population-mean-known-variance.</li>
+</ul>
 </div>
 
 

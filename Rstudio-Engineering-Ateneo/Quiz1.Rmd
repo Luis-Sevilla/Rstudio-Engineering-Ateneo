@@ -232,7 +232,7 @@ $$
 
 
 
-Reject $H_0$ if **P-value** is less than $\alpha$, where $\alpha = 0.05$. For the significant level test, we will also reject $H_0$ is $z_0 < -z_\alpha$
+Reject $H_0$ if **P-value** is less than $\alpha$, where $\alpha = 0.05$. For the significance level test, we will also reject $H_0$ if $z_0 < -z_\alpha$
 
 
 
@@ -272,3 +272,7 @@ pnorm(z0)
 
 
 Since our **P-level** is less than the alpha value ($0.0004<0.05$) and in the significance test we proved that $z_0 > -z_\alpha$, ($-3.33 > -1.64$) we ***reject *** $H_0$
+
+#### References
+* Montgomery, Douglas C, and George C Runger. 2010. Applied Statistics and Probability for Engineers. John Wiley & Sons.
+* “Type II Error in Upper Tail Test of Population Mean with Known Variance.” Type II Error in Upper Tail Test of Population Mean with Known Variance | R Tutorial, www.r-tutor.com/elementary-statistics/type-2-errors/type-2-errors-upper-tail-test-population-mean-known-variance. 
